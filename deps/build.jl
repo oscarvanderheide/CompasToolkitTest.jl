@@ -6,9 +6,15 @@ function build_library()
     PKG_ROOT = dirname(@__DIR__)
     BUILD_DIR = get_scratch!(MODULE_UUID, "build")
 
+    # Configure
     cmd = `cmake -S $(PKG_ROOT) -B$(BUILD_DIR)`
     run(cmd)
 
+    # Build
+    cmd = `cmake --build $(BUILD_DIR)`
+    run(cmd)
+
+    # Install
     cmd = `cmake --install $(BUILD_DIR)`
     run(cmd)
 end
