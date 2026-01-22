@@ -20,7 +20,7 @@ DeviceInfo::DeviceInfo(DeviceId id, GPUContextHandle context, size_t num_concurr
     for (size_t i = 1; i < NUM_ATTRIBUTES; i++) {
         auto attr = GPUdevice_attribute(i);
         auto error = gpuDeviceGetAttribute(&m_attributes[i], attr, m_device_id);
-        if (error == gpuErrorInvalidValue) {
+        if (error == cudaErrorInvalidValue) {
             m_attributes[i] = 0;
         } else {
             KMM_GPU_CHECK(error);
