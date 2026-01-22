@@ -9,6 +9,14 @@ endif()
 # Include compas toolkit
 add_subdirectory(compas-toolkit)
 
+# Configure local files (after subdirectory to get variables)
+configure_file(
+    ${PROJECT_SOURCE_DIR}/src/Constants.jl.input
+    ${PROJECT_SOURCE_DIR}/src/Constants.jl)
+configure_file(
+    ${PROJECT_SOURCE_DIR}/bindings/constants.h.input
+    ${PROJECT_SOURCE_DIR}/bindings/constants.h)
+
 # Create bindings library
 file(GLOB sources "${CMAKE_CURRENT_SOURCE_DIR}/bindings/*.cpp")
 add_library(compas-julia SHARED ${sources})
@@ -26,11 +34,3 @@ install(TARGETS compas-julia LIBRARY DESTINATION lib)
 
 # Link with toolkit
 target_link_libraries(compas-julia compas-toolkit)
-
-# Configure local files
-configure_file(
-    ${PROJECT_SOURCE_DIR}/src/Constants.jl.input
-    ${PROJECT_SOURCE_DIR}/src/Constants.jl)
-configure_file(
-    ${PROJECT_SOURCE_DIR}/bindings/constants.h.input
-    ${PROJECT_SOURCE_DIR}/bindings/constants.h)
